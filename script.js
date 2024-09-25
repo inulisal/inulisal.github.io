@@ -22,10 +22,10 @@
       const textSecond = Math.floor((gap % minute) / second);
   
       document.getElementById('countdown').innerHTML =
-        `<div>${textDay} <br/><p style="font-size:10px";>Day</p></div>
-         <div>${textHour} <br/><p style="font-size:10px";>Hour</p></div>
-         <div>${textMinute} <br/><p style="font-size:10px";>Min</p></div>
-         <div>${textSecond} <br/><p style="font-size:10px";>Sec</p></div>`;
+        `<div>${textDay} <br/><p style="font-size:10px";>Hari</p></div>
+         <div>${textHour} <br/><p style="font-size:10px";>Jam</p></div>
+         <div>${textMinute} <br/><p style="font-size:10px";>Mnt</p></div>
+         <div>${textSecond} <br/><p style="font-size:10px";>Dtk</p></div>`;
     }
   
     setInterval(countdown, 1000);
