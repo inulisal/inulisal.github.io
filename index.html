@@ -122,25 +122,25 @@
   <!-- Frame 6 -->
   <div class="frame frame-6" id="frame-6">
     <center><h2 class="transisi transisi-bawah" style="font-family: Redressed;">Doa dan Ucapan</h2></center><p></p>
-    <form id="comment-form">
+    <form id="formPernikahan">
       <div class="form-group transisi transisi-kiri">
-        <label for="name">Nama:</label>
-        <input type="text" class="form-control" id="name" required>
+        <label for="nama">Nama:</label>
+        <input type="text" class="form-control" id="nama" name="nama" required>
       </div>
       <div class="form-group transisi transisi-kiri">
-        <label for="attendance">Konfirmasi Kehadiran:</label>
-        <select class="form-control" id="attendance" required>
+        <label for="kehadiran">Konfirmasi Kehadiran:</label>
+        <select class="form-control" id="kehadiran" required>
           <option value="Hadir">Hadir</option>
           <option value="Tidak Hadir">Tidak Hadir</option>
         </select>
       </div>
       <div class="form-group transisi transisi-kiri">
-        <label for="comment">Kirim Doa & Ucapan:</label>
-        <textarea class="form-control" id="comment" rows="3" required></textarea>
+        <label for="pesan">Kirim Doa & Ucapan:</label>
+        <textarea class="form-control" id="pesan" name="pesan" rows="3" required></textarea>
       </div>
       <button type="submit" class="btn btn-dark btn-block">Kirim</button>
     </form>
-    <div class="comment-section" id="comment-section"></div>
+    <div class="ucapan" id="ucapan"></div>
   </div>
 
   <!-- Frame 2 -->
