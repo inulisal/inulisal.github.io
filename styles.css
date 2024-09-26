@@ -278,16 +278,17 @@ body, html {
     color: rgb(255, 255, 255);
     padding: 50px;
   }
-  .comment-section {
+  .ucapan-section {
     margin-top: 20px;
-    color: rgb(0, 0, 0);
+    color: rgb(8, 8, 8);
   }
-  .comment {
+  .ucapan {
     background: rgb(255, 255, 255);
     padding: 10px;
     margin: 10px 0;
     border-radius: 10px;
-  }
+    color: rgb(8, 8, 8);
+      
   .frame-7 {
     background-color: #fff5c9;
     background-image: url('1.jpg');
