@@ -30,51 +30,6 @@
   
     setInterval(countdown, 1000);
   
-    // Load comments from LocalStorage
-    function loadComments() {
-      const comments = JSON.parse(localStorage.getItem('comments')) || [];
-      const commentSection = document.getElementById('comment-section');
-      commentSection.innerHTML = '';
-      comments.forEach(comment => {
-        const newComment = document.createElement('div');
-        newComment.className = 'comment';
-        newComment.innerHTML = `<strong>${comment.name}</strong> (${comment.attendance}): <p>${comment.comment}</p>`;
-        commentSection.appendChild(newComment);
-      });
-    }
-  
-    // Save comments to LocalStorage
-    function saveComment(name, attendance, comment) {
-      const comments = JSON.parse(localStorage.getItem('comments')) || [];
-      comments.push({ name, attendance, comment });
-      localStorage.setItem('comments', JSON.stringify(comments));
-    }
-  
-    // Comment form submission
-    document.getElementById('comment-form').addEventListener('submit', function(event) {
-      event.preventDefault();
-      const name = document.getElementById('name').value;
-      const attendance = document.getElementById('attendance').value;
-      const comment = document.getElementById('comment').value;
-  
-      saveComment(name, attendance, comment);
-  
-      const commentSection = document.getElementById('comment-section');
-      const newComment = document.createElement('div');
-      newComment.className = 'comment';
-      newComment.innerHTML = `<strong>${name}</strong> (${attendance}): <p>${comment}</p>`;
-      commentSection.appendChild(newComment);
-  
-      // Clear the form
-      document.getElementById('comment-form').reset();
-    });
-  
-    // Load comments on page load
-    window.onload = function() {
-      loadComments();
-    };
-
-
     // Copy to clipboard function
     function copyToClipboard(text) {
       navigator.clipboard.writeText(text).then(() => {
@@ -177,3 +132,78 @@ document.getElementById('open-music-btn').addEventListener('click', function() {
 function kecil() {
     document.getElementById('gambar').classList.remove('transisi-besar');
 }
+
+
+//AWAL UCAPAN//
+
+document.addEventListener('DOMContentLoaded', function() {
+  fetchUcapan(); // Memanggil fungsi untuk mengambil semua data ucapan saat halaman dimuat
+});
+
+// Fungsi untuk mengambil semua data ucapan dari Google Sheets
+function fetchUcapan() {
+  var url = 'https://script.google.com/macros/s/AKfycbyNEwrJXD7H9H-RJ7taQn1rwBl2vcCH5B7tJVks47AW15iIhUwUJ5uBDi5Uz-TlqGu3/exec'; // Ganti dengan URL Web App Google Apps Script Anda
+
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      displayAllUcapan(data); // Tampilkan semua ucapan yang diterima di halaman
+    })
+    .catch(error => {
+      console.error('Error fetching ucapan:', error);
+    });
+}
+
+// Fungsi untuk menampilkan semua ucapan di halaman
+function displayAllUcapan(ucapanData) {
+  var ucapanContainer = document.getElementById('ucapan');
+  ucapanContainer.innerHTML = ''; // Kosongkan isi sebelumnya
+
+  ucapanData.forEach(function(ucapan) {
+    var ucapanItem = document.createElement('div');
+    ucapanItem.classList.add('ucapan-item');
+    ucapanItem.innerHTML = `<strong>${ucapan.nama} (${ucapan.kehadiran}):</strong><p>${ucapan.pesan}</p>`;
+    ucapanContainer.appendChild(ucapanItem);
+  });
+}
+
+// Fungsi untuk mengirim data ke Google Apps Script
+document.getElementById('formPernikahan').addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  var nama = document.getElementById('nama').value;
+  var kehadiran = document.getElementById('kehadiran').value;
+  var pesan = document.getElementById('pesan').value;
+
+  var url = 'https://script.google.com/macros/s/AKfycbyNEwrJXD7H9H-RJ7taQn1rwBl2vcCH5B7tJVks47AW15iIhUwUJ5uBDi5Uz-TlqGu3/exec'; // Ganti dengan URL Web App
+
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      'nama': nama,
+      'kehadiran': kehadiran,
+      'pesan': pesan
+    })
+  })
+  .then(response => response.text())
+  .then(text => {
+    document.getElementById('respon').innerHTML = 'Terima kasih, ucapan Anda sudah diterima!';
+    // Tambahkan ucapan baru ke tampilan
+    var ucapanContainer = document.getElementById('ucapan');
+    var ucapanItem = document.createElement('div');
+    ucapanItem.classList.add('ucapan-item');
+    ucapanItem.innerHTML = `<strong>${nama} (${kehadiran}):</strong><p>${pesan}</p>`;
+    ucapanContainer.prepend(ucapanItem); // Menambahkan ke atas daftar
+    document.getElementById('formPernikahan').reset(); // Reset form setelah kirim
+  })
+  .catch(error => {
+    document.getElementById('respon').innerHTML = 'Terjadi kesalahan, coba lagi nanti.';
+    console.error('Error:', error);
+  });
+});
+
+//AKHIR UCAPAN//
+
